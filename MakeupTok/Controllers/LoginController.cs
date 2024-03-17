@@ -7,6 +7,7 @@ using MakeupTok.Model.Open;
 
 namespace MakeupTok.Controllers;
 
+[Route("[controller]")]
 public class LoginController : Controller
 {
     #region Fields
@@ -44,7 +45,7 @@ public class LoginController : Controller
     /// </summary>
     /// <returns></returns>
     [ApiExplorerSettings(IgnoreApi = true)]
-    [HttpGet("login")]
+    [HttpGet()]
     public IActionResult Index()
     {
         if (!string.IsNullOrEmpty(User?.Identity?.Name))
@@ -90,6 +91,7 @@ public class LoginController : Controller
     /// GET: /login/logout
     /// </summary>
     /// <returns></returns>
+    [HttpGet("logout")]
     public async Task<IActionResult> Logout()
     {
         // logout process
