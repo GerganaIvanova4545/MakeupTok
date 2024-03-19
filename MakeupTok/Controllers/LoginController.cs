@@ -50,7 +50,7 @@ public class LoginController : Controller
     {
         if (!string.IsNullOrEmpty(User?.Identity?.Name))
             return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
-        return View();
+        return View("Login");
     }
 
     /// <summary>

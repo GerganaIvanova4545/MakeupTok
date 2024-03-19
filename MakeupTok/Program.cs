@@ -1,3 +1,5 @@
+using MakeupTok.Services;
+using MakeupTok.Services.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
         options.AccessDeniedPath = "/Error/AccessDenied";
     });
+
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IMakeupRepository, MakeupRepository>();
 
 var app = builder.Build();
 

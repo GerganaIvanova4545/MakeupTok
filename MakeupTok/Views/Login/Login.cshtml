@@ -6,13 +6,6 @@
 <v-container class="mt-5" fluid>
     <v-row justify="center">
         <v-col cols="12" sm="9" md="6" lg="4" xl="3">
-            <v-card block elevation="0" outlined>
-                <v-img src="../img/login-bg-1.jpg" max-height="5rem" />
-            </v-card>
-        </v-col>
-    </v-row>
-    <v-row justify="center">
-        <v-col cols="12" sm="9" md="6" lg="4" xl="3">
             <v-card elevation="0" outlined>
                 <v-card-title class="text-h5">Вход</v-card-title>
 
@@ -22,14 +15,14 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field v-bind="attrs" v-on="on" @@keyup.enter="login" v-model="user" :disabled="isLoading" :loading="isLoading" label="Потребител" outlined clearable></v-text-field>
                         </template>
-                        <span>Потребителско име за iLab</span>
+                        <span>Потребителско име</span>
                     </v-tooltip>
 
                     <v-tooltip bottom open-delay="800">
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field v-bind="attrs" v-on="on" @@keyup.enter="login" v-model="password" :disabled="isLoading" :loading="isLoading" label="Парола" outlined type="Password" clearable></v-text-field>
                         </template>
-                        <span>Парола за iLab</span>
+                        <span>Парола</span>
                     </v-tooltip>
 
                 </v-card-text>
@@ -39,7 +32,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn v-bind="attrs" v-on="on" color="primary" block text :loading="isLoading" v-on:click="login()">Вход</v-btn>
                         </template>
-                        <span>Вход в Пирин</span>
+                        <span>Вход</span>
                     </v-tooltip>
                 </v-card-actions>
             </v-card>
@@ -51,7 +44,7 @@
             @{
                 var v = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             }
-            <p class="font-weight-regular body-2">ЛИС iLab, Пирин @v.Major.@v.Minor.@v.Build.</p>
+            <p class="font-weight-regular body-2">@v.Major.@v.Minor.@v.Build.</p>
         </v-col>
     </v-row>
     <v-dialog v-model="errDialog" max-width="600">
