@@ -1,16 +1,22 @@
-﻿using MakeupTok.Model;
+﻿using AutoMapper;
+using MakeupTok.Model;
+using MakeupTok.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MakeupTok.Controllers;
 
 [Route("api")]
-public class MakeupsController : Controller
+public class MakeupsController(IMakeupRepository repo,
+    IMapper mapper) : Controller
 {
 
+    private IMakeupRepository _repository = repo;
+    private IMapper _mapper = mapper;
+
     [HttpGet("makeups/next-makeup")]
-    public IActionResult GetNextMakeup()
+    public async Task<IActionResult> GetNextMakeup()
     {
-        return Ok(new Makeup());
+        return Ok(await _repository.GetNextMakeup(0));
     }
 
     [HttpDelete("makeups/{id}")]
@@ -26,9 +32,9 @@ public class MakeupsController : Controller
     }
 
     [HttpPost("makeups")]
-    public IActionResult PostMakeup()
+    public async Task<IActionResult> PostMakeup([FromBody] Model.Open.Makeup makeup)
     {
-        return Ok(new Makeup());
+        return Ok(await _repository.SaveMakeup(_mapper.Map<Makeup>(makeup)));
     }
 
 }

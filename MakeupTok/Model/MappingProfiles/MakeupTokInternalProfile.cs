@@ -1,6 +1,20 @@
-﻿namespace MakeupTok.Model.MappingProfiles
+﻿using AutoMapper;
+
+namespace MakeupTok.Model.MappingProfiles;
+
+public class MakeupTokInternalProfile : Profile
 {
-    public class MakeupTokInternalProfile
+
+    /// <summary>
+    /// Rila internal AutoMapper configuration
+    /// </summary>
+    public MakeupTokInternalProfile()
     {
+
+        CreateMap<Open.User, User>();
+        CreateMap<Open.MakeupStep, MakeupStep>();
+        CreateMap<Open.Makeup, Makeup>();
+
     }
+
 }

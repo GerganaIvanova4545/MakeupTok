@@ -1,3 +1,5 @@
+using MakeupTok.Model;
+using MakeupTok.Model.MappingProfiles;
 using MakeupTok.Services;
 using MakeupTok.Services.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,6 +21,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IMakeupRepository, MakeupRepository>();
+
+builder.Services.AddAutoMapper(bld =>
+{
+
+    // Add profiles for AutoMapper to use
+    bld.AddProfile(new MakeupTokInternalProfile());
+
+});
+
+builder.Services.AddDbContext<MakeupTokContext>();
 
 var app = builder.Build();
 

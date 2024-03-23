@@ -32,7 +32,6 @@ public class MakeupTokContext : DbContext
     protected override async void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlite($"Data Source={DbPath}");
-        Database.EnsureCreated();
     }
 
 }
