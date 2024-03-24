@@ -78,6 +78,7 @@ public class LoginController : Controller
         // cookies
         var claims = new List<Claim> {
             new Claim(ClaimTypes.Name, cred.UserName),
+            new Claim("UserId", cred.UserName),
         };
         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties { });

@@ -5,10 +5,12 @@ namespace MakeupTok.Services;
 public interface IMakeupRepository
 {
 
-    public Task<Makeup> GetMakeupById(int id);
+    public Task<Makeup> GetById(int id);
 
-    public Task<Makeup> SaveMakeup(Makeup makeup);
+    public Task<Makeup> Save(Makeup makeup);
 
-    public Task<Makeup> GetNextMakeup(int userId);
+    public Task<Makeup> Delete(Makeup makeup);
+
+    public Task<Makeup> GetNext(int userId);
 
 }

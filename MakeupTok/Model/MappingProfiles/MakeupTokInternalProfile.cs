@@ -13,7 +13,9 @@ public class MakeupTokInternalProfile : Profile
 
         CreateMap<Open.User, User>();
         CreateMap<Open.MakeupStep, MakeupStep>();
+        CreateMap<MakeupStep, Open.MakeupStep>();
         CreateMap<Open.Makeup, Makeup>();
+        CreateMap<Makeup, Open.Makeup>();
 
     }
 
