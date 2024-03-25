@@ -13,8 +13,6 @@ public interface IUserRepository
 
     public Task<User> AuthenticateUserAsync(string username, string password);
 
-    public Task<User> UpdateUserAsync(User user);
-
     public Task DeleteUserAsync(string username);
 
 }

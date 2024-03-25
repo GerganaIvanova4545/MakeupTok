@@ -8,15 +8,25 @@ public class MakeupRepository(MakeupTokContext cont) : IMakeupRepository
 
     private readonly MakeupTokContext _context = cont;
 
+    public async Task Delete(int id)
+    {
+        await _context.Makeups.Where(x => x.Id == id).ExecuteDeleteAsync();
+    }
+
     public async Task<Makeup> GetById(int id)
     {
         _context.Database.EnsureCreated();
         return await _context.Makeups.Include(x => x.Steps).FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Makeup> GetNext(int userId)
+    public async Task<IEnumerable<Makeup>> GetByUser(int userId)
     {
         _context.Database.EnsureCreated();
+        throw new NotImplementedException();
+    }
+
+    public async Task<Makeup> GetNextByUser(int userId)
+    {
         return await _context.Makeups.Include(x => x.Steps).FirstOrDefaultAsync();
     }
 

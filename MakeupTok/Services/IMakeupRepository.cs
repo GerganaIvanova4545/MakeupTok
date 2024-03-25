@@ -9,8 +9,10 @@ public interface IMakeupRepository
 
     public Task<Makeup> Save(Makeup makeup);
 
-    public Task<Makeup> Delete(Makeup makeup);
+    public Task Delete(int id);
 
-    public Task<Makeup> GetNext(int userId);
+    public Task<IEnumerable<Makeup>> GetByUser(int userId);
+
+    public Task<Makeup> GetNextByUser(int userId);
 
 }

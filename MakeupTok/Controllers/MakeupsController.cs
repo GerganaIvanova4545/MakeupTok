@@ -18,7 +18,7 @@ public class MakeupsController(IMakeupRepository repo,
     [HttpGet("makeups/next-makeup")]
     public async Task<IActionResult> GetNextMakeup()
     {
-        var mkp = await _repository.GetNext(int.Parse(HttpContext.User.Claims.First(x => x.Type == "UserId").Value));
+        var mkp = await _repository.GetNextByUser(int.Parse(HttpContext.User.Claims.First(x => x.Type == "UserId").Value));
         var mkpfinal = _mapper.Map<Model.Open.Makeup>(mkp);
         return Ok(mkpfinal);
     }
