@@ -3,9 +3,17 @@ using System.Text;
 
 namespace MakeupTok.Helpers;
 
+/// <summary>
+/// Password helper
+/// </summary>
 public static class HashHelper
 {
 
+    /// <summary>
+    /// Compute hash
+    /// </summary>
+    /// <param name="rawData"></param>
+    /// <returns></returns>
     public static string ComputeSha256Hash(string rawData)
     {
         // Create a SHA256   
