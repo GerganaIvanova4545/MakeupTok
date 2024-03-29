@@ -22,4 +22,8 @@
     <ProjectReference Include="..\MakeupTok.Model\MakeupTok.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\Open\Validation\" />
+  </ItemGroup>
+
 </Project>
