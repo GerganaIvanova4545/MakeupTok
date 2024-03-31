@@ -1,18 +1,18 @@
 ﻿using FluentValidation;
 
-namespace MakeupTok.Model.Open.Validation;
+namespace MakeupTok.Model.Validation;
 
-public class MakeupStepValidator : AbstractValidator<MakeupStep>
+public class MakeupValidator : AbstractValidator<Makeup>
 {
 
     /// <summary>
     /// FluentValidation validator for the object.
     /// </summary>
-    public MakeupStepValidator()
+    public MakeupValidator()
     {
         RuleFor(procedure => procedure.Name).NotNull().NotEmpty().MinimumLength(3).MaximumLength(20);
         RuleFor(procedure => procedure.Description).NotNull().NotEmpty().MinimumLength(0).MaximumLength(200);
-        RuleFor(procedure => procedure.Color).NotNull().NotEmpty();
+        RuleForEach(procedure => procedure.Steps).SetValidator(new MakeupStepValidator());
     }
 
 }

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace MakeupTok.Model.Open.Validation;
+namespace MakeupTok.Model.Validation;
 
-public class UserValidator : AbstractValidator<UserEditDto>
+public class UserValidator : AbstractValidator<User>
 {
 
     /// <summary>

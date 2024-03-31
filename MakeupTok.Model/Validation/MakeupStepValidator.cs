@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace MakeupTok.Model.Open.Validation;
+namespace MakeupTok.Model.Validation;
 
 public class MakeupStepValidator : AbstractValidator<MakeupStep>
 {

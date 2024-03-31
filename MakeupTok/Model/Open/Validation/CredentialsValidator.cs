@@ -6,7 +6,7 @@ public class CredentialsValidator : AbstractValidator<CredentialsDto>
 {
 
     /// <summary>
-    /// FluentValidation validator for the RilaResult object.
+    /// FluentValidation validator for the object.
     /// </summary>
     public CredentialsValidator()
     {

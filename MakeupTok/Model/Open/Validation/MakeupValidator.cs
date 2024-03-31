@@ -6,7 +6,7 @@ public class MakeupValidator : AbstractValidator<Makeup>
 {
 
     /// <summary>
-    /// FluentValidation validator for the RilaResult object.
+    /// FluentValidation validator for the object.
     /// </summary>
     public MakeupValidator()
     {

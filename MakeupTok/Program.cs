@@ -1,12 +1,13 @@
+using FluentValidation;
 using MakeupTok.Model;
 using MakeupTok.Model.MappingProfiles;
+using MakeupTok.Model.Open.Validation;
 using MakeupTok.Services;
 using MakeupTok.Services.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSwaggerGen();
@@ -24,21 +25,19 @@ builder.Services.AddTransient<IMakeupRepository, MakeupRepository>();
 
 builder.Services.AddAutoMapper(bld =>
 {
-
-    // Add profiles for AutoMapper to use
     bld.AddProfile(new MakeupTokInternalProfile());
-
 });
 
 builder.Services.AddDbContext<MakeupTokContext>();
 
+builder.Services.AddValidatorsFromAssemblyContaining<CredentialsValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<MakeupTok.Model.Validation.UserValidator>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
