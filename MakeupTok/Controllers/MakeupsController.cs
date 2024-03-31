@@ -24,9 +24,10 @@ public class MakeupsController(IMakeupRepository repo,
     }
 
     [HttpDelete("makeups/{id}")]
-    public async Task<IActionResult> DeleteMakeup()
+    public async Task<IActionResult> DeleteMakeup(int id)
     {
-        await _repository.
+        await _repository.Delete(id);
+        return Ok();
     }
 
     [HttpPut("makeups/{id}")]

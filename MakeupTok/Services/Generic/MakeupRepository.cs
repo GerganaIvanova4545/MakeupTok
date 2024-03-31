@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MakeupTok.Services.Generic;
 
-public class MakeupRepository(MakeupTokContext cont) : IMakeupRepository
+public class MakeupRepository(MakeupTokContext cont, IUserRepository usrRepo) : IMakeupRepository
 {
 
     private readonly MakeupTokContext _context = cont;
+    private readonly IUserRepository _userRepo = usrRepo;
 
     public async Task Delete(int id)
     {
@@ -15,14 +16,12 @@ public class MakeupRepository(MakeupTokContext cont) : IMakeupRepository
 
     public async Task<Makeup> GetById(int id)
     {
-        _context.Database.EnsureCreated();
         return await _context.Makeups.Include(x => x.Steps).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<IEnumerable<Makeup>> GetByUser(int userId)
     {
-        _context.Database.EnsureCreated();
-        throw new NotImplementedException();
+        
     }
 
     public async Task<Makeup> GetNextByUser(int userId)
@@ -32,8 +31,6 @@ public class MakeupRepository(MakeupTokContext cont) : IMakeupRepository
 
     public async Task<Makeup> Save(Makeup makeup)
     {
-        _context.Database.EnsureCreated();
-        var usr = new User() { Username = "mani", Email = "mani", Password = "mani",  ProfileImage = "sdsddsd" };
         _context.Users.Add(usr);
         await _context.SaveChangesAsync();
         makeup.User = usr;

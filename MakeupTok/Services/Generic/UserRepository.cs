@@ -1,39 +1,56 @@
-﻿using MakeupTok.Model;
+﻿using FluentValidation;
+using MakeupTok.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace MakeupTok.Services.Generic;
 
-public class UserRepository(MakeupTokContext cont) : IUserRepository
+public class UserRepository(MakeupTokContext cont, IValidator<User> valid) : IUserRepository
 {
 
     private readonly MakeupTokContext _context = cont;
+    private readonly IValidator<User> _validator = valid;
 
-    public Task<User> AuthenticateUserAsync(string username, string password)
+    public async Task<User> AuthenticateUserAsync(string username, string password)
     {
-
+        if (!(await UserExistsAsync(username))) throw new Exception("User does not exist!");
+        var loadedUser = await _context.Users.FirstAsync(x => x.Username == username && x.Password == password);
+        return loadedUser;
     }
 
-    public Task DeleteUserAsync(string username)
+    public async Task DeleteUserAsync(string username)
     {
-
+        if (!await UserExistsAsync(username)) throw new Exception("User does not exist!");
+        await _context.Users.Where(x => x.Username == username).ExecuteDeleteAsync();
     }
 
-    public Task<User[]> GetUsersAsync()
+    public async Task<User[]> GetUsersAsync()
     {
-
+        return await _context.Users.ToArrayAsync();
     }
 
-    public Task<User> SaveUserAsync(User user)
+    public async Task<User> SaveUserAsync(User user)
     {
-
+        if (await UserExistsAsync(user.Username)) throw new Exception("User already exists!");
+        _validator.ValidateAndThrow(user);
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return user;
     }
 
-    public Task<User> UpdateUserAsync(User user)
+    public async Task<User> UpdateUserAsync(User user)
     {
-
+        if (!(await UserExistsAsync(user.Username))) throw new Exception("User does not exist!");
+        _validator.ValidateAndThrow(user);
+        var loadedUser = await _context.Users.FirstAsync(x => x.Username == user.Username);
+        loadedUser.Email = user.Email;
+        loadedUser.Password = user.Password;
+        loadedUser.ProfileImage = user.ProfileImage;
+        await _context.SaveChangesAsync();
+        return loadedUser;
     }
 
-    public Task<bool> UserExistsAsync(string username)
+    public async Task<bool> UserExistsAsync(string username)
     {
-
+        return await _context.Users.AnyAsync(x => x.Username == username);
     }
 }
