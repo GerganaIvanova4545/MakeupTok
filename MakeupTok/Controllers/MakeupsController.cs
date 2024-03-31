@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MakeupTok.Controllers;
 
-[Route("api")]
+[Route("api/makeups")]
 [Authorize]
 public class MakeupsController(IMakeupRepository repo,
     IMapper mapper) : Controller
@@ -15,7 +15,7 @@ public class MakeupsController(IMakeupRepository repo,
     private IMakeupRepository _repository = repo;
     private IMapper _mapper = mapper;
 
-    [HttpGet("makeups/next-makeup")]
+    [HttpGet("next-makeup")]
     public async Task<IActionResult> GetNextMakeup()
     {
         var mkp = await _repository.GetNextByUser(int.Parse(HttpContext.User.Claims.First(x => x.Type == "UserId").Value));
@@ -23,20 +23,20 @@ public class MakeupsController(IMakeupRepository repo,
         return Ok(mkpfinal);
     }
 
-    [HttpDelete("makeups/{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteMakeup(int id)
     {
         await _repository.Delete(id);
         return Ok();
     }
 
-    [HttpPut("makeups/{id}")]
+    [HttpPut("{id}")]
     public IActionResult UpdateMakeup()
     {
         return Ok(new Makeup());
     }
 
-    [HttpPost("makeups")]
+    [HttpPost()]
     public async Task<IActionResult> PostMakeup([FromBody] Model.Open.Makeup makeup)
     {
         return Ok(await _repository.Save(_mapper.Map<Makeup>(makeup)));

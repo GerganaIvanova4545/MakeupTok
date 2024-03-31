@@ -21,7 +21,7 @@ public class MakeupRepository(MakeupTokContext cont, IUserRepository usrRepo) : 
 
     public async Task<IEnumerable<Makeup>> GetByUser(int userId)
     {
-        
+        throw new Exception();   
     }
 
     public async Task<Makeup> GetNextByUser(int userId)
@@ -31,11 +31,6 @@ public class MakeupRepository(MakeupTokContext cont, IUserRepository usrRepo) : 
 
     public async Task<Makeup> Save(Makeup makeup)
     {
-        _context.Users.Add(usr);
-        await _context.SaveChangesAsync();
-        makeup.User = usr;
-        _context.Makeups.Add(makeup);
-        await _context.SaveChangesAsync();
-        return makeup;
+        throw new Exception();
     }
 }
